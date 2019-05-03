@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet-src.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/Control.OSMGeocoder.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/Neighbouring_Sublocations_1.js"></script>
+        <script src="data/RTI_Sampled_Sublocations_2.js"></script>
+        <script src="data/Final_Grid_Sample_Reserves_3.js"></script>
+        <script src="data/Final_Grid_Sample_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        var overlay_GoogleHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            opacity: 1.0
+        });
+        overlay_GoogleHybrid_0.addTo(map);
+        map.addLayer(overlay_GoogleHybrid_0);
+        function pop_Neighbouring_Sublocations_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Province</th>\
+                        <td>' + (feature.properties['Province'] !== null ? Autolinker.link(String(feature.properties['Province'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">District</th>\
+                        <td>' + (feature.properties['District'] !== null ? Autolinker.link(String(feature.properties['District'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Subloc</th>\
+                        <td>' + (feature.properties['Subloc'] !== null ? Autolinker.link(String(feature.properties['Subloc'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Neighbouring_Sublocations_1_0() {
+            return {
+                pane: 'pane_Neighbouring_Sublocations_1',
+                opacity: 1,
+                color: 'rgba(8,240,243,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(96,144,52,0.0)',
+            }
+        }
+        map.createPane('pane_Neighbouring_Sublocations_1');
+        map.getPane('pane_Neighbouring_Sublocations_1').style.zIndex = 401;
+        map.getPane('pane_Neighbouring_Sublocations_1').style['mix-blend-mode'] = 'normal';
+        var layer_Neighbouring_Sublocations_1 = new L.geoJson(json_Neighbouring_Sublocations_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Neighbouring_Sublocations_1',
+            onEachFeature: pop_Neighbouring_Sublocations_1,
+            style: style_Neighbouring_Sublocations_1_0,
+        });
+        bounds_group.addLayer(layer_Neighbouring_Sublocations_1);
+        map.addLayer(layer_Neighbouring_Sublocations_1);
+        function pop_RTI_Sampled_Sublocations_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Province</th>\
+                        <td>' + (feature.properties['Province'] !== null ? Autolinker.link(String(feature.properties['Province'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">District</th>\
+                        <td>' + (feature.properties['District'] !== null ? Autolinker.link(String(feature.properties['District'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Subloc</th>\
+                        <td>' + (feature.properties['Subloc'] !== null ? Autolinker.link(String(feature.properties['Subloc'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RTI_Sampled_Sublocations_2_0() {
+            return {
+                pane: 'pane_RTI_Sampled_Sublocations_2',
+                opacity: 1,
+                color: 'rgba(255,5,1,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(36,255,255,0.0)',
+            }
+        }
+        map.createPane('pane_RTI_Sampled_Sublocations_2');
+        map.getPane('pane_RTI_Sampled_Sublocations_2').style.zIndex = 402;
+        map.getPane('pane_RTI_Sampled_Sublocations_2').style['mix-blend-mode'] = 'normal';
+        var layer_RTI_Sampled_Sublocations_2 = new L.geoJson(json_RTI_Sampled_Sublocations_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_RTI_Sampled_Sublocations_2',
+            onEachFeature: pop_RTI_Sampled_Sublocations_2,
+            style: style_RTI_Sampled_Sublocations_2_0,
+        });
+        bounds_group.addLayer(layer_RTI_Sampled_Sublocations_2);
+        map.addLayer(layer_RTI_Sampled_Sublocations_2);
+        function pop_Final_Grid_Sample_Reserves_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Grid ID</th>\
+                        <td>' + (feature.properties['Grid ID'] !== null ? Autolinker.link(String(feature.properties['Grid ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Province</th>\
+                        <td>' + (feature.properties['Province'] !== null ? Autolinker.link(String(feature.properties['Province'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">District</th>\
+                        <td>' + (feature.properties['District'] !== null ? Autolinker.link(String(feature.properties['District'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Subloc</th>\
+                        <td>' + (feature.properties['Subloc'] !== null ? Autolinker.link(String(feature.properties['Subloc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">H.H</th>\
+                        <td>' + (feature.properties['H.H'] !== null ? Autolinker.link(String(feature.properties['H.H'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Order</th>\
+                        <td>' + (feature.properties['Order'] !== null ? Autolinker.link(String(feature.properties['Order'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cluster ID</th>\
+                        <td>' + (feature.properties['Cluster ID'] !== null ? Autolinker.link(String(feature.properties['Cluster ID'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Final_Grid_Sample_Reserves_3_0() {
+            return {
+                pane: 'pane_Final_Grid_Sample_Reserves_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(170,34,104,0.4)',
+            }
+        }
+        map.createPane('pane_Final_Grid_Sample_Reserves_3');
+        map.getPane('pane_Final_Grid_Sample_Reserves_3').style.zIndex = 403;
+        map.getPane('pane_Final_Grid_Sample_Reserves_3').style['mix-blend-mode'] = 'normal';
+        var layer_Final_Grid_Sample_Reserves_3 = new L.geoJson(json_Final_Grid_Sample_Reserves_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Final_Grid_Sample_Reserves_3',
+            onEachFeature: pop_Final_Grid_Sample_Reserves_3,
+            style: style_Final_Grid_Sample_Reserves_3_0,
+        });
+        bounds_group.addLayer(layer_Final_Grid_Sample_Reserves_3);
+        map.addLayer(layer_Final_Grid_Sample_Reserves_3);
+        function pop_Final_Grid_Sample_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Grid ID</th>\
+                        <td>' + (feature.properties['Grid ID'] !== null ? Autolinker.link(String(feature.properties['Grid ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Province</th>\
+                        <td>' + (feature.properties['Province'] !== null ? Autolinker.link(String(feature.properties['Province'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">District</th>\
+                        <td>' + (feature.properties['District'] !== null ? Autolinker.link(String(feature.properties['District'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Subloc</th>\
+                        <td>' + (feature.properties['Subloc'] !== null ? Autolinker.link(String(feature.properties['Subloc'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">H.H</th>\
+                        <td>' + (feature.properties['H.H'] !== null ? Autolinker.link(String(feature.properties['H.H'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cluster ID</th>\
+                        <td>' + (feature.properties['Cluster ID'] !== null ? Autolinker.link(String(feature.properties['Cluster ID'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Final_Grid_Sample_4_0() {
+            return {
+                pane: 'pane_Final_Grid_Sample_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,248,36,0.4)',
+            }
+        }
+        map.createPane('pane_Final_Grid_Sample_4');
+        map.getPane('pane_Final_Grid_Sample_4').style.zIndex = 404;
+        map.getPane('pane_Final_Grid_Sample_4').style['mix-blend-mode'] = 'normal';
+        var layer_Final_Grid_Sample_4 = new L.geoJson(json_Final_Grid_Sample_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Final_Grid_Sample_4',
+            onEachFeature: pop_Final_Grid_Sample_4,
+            style: style_Final_Grid_Sample_4_0,
+        });
+        bounds_group.addLayer(layer_Final_Grid_Sample_4);
+        map.addLayer(layer_Final_Grid_Sample_4);
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'topright',
+            text: 'Search',
+        });
+        osmGeocoder.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Final_Grid_Sample_4.png" /> Final_Grid_Sample': layer_Final_Grid_Sample_4,'<img src="legend/Final_Grid_Sample_Reserves_3.png" /> Final_Grid_Sample_Reserves': layer_Final_Grid_Sample_Reserves_3,'<img src="legend/RTI_Sampled_Sublocations_2.png" /> RTI_Sampled_Sublocations': layer_RTI_Sampled_Sublocations_2,'<img src="legend/Neighbouring_Sublocations_1.png" /> Neighbouring_Sublocations': layer_Neighbouring_Sublocations_1,"Google Hybrid": overlay_GoogleHybrid_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_RTI_Sampled_Sublocations_2,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Subloc'}));
+        </script>
+    </body>
+</html>
